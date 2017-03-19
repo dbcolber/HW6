@@ -136,11 +136,12 @@ names_and_productivities = [(i[0],i[1]) for i in zip(names,prod_list)]
 print("\n\n***** Problem 8 *****")
 # Use the Python filter function to select the subset of programmers who have names with 5 or more characters. (i.e. ["Albert","Dinesh","Euijin"]) Your result should be an filter object that points to Student instances. Save that filter iterator in a variable called long_names.
 
-long_names = []
+long_names = filter(lambda x:len(x.name) >5, programmers)
 
 ## Then write code to cast the value of long_names to a list and save it in the variable long_names_list. 
 
-long_names_list = []
+long_names_list = (list(long_names))
+print(long_names_list)
 
 ## [PROBLEM 9]
 print("\n\n***** Problem 9 *****")
@@ -149,8 +150,9 @@ print("\n\n***** Problem 9 *****")
 
 ## Note that you can use another list you have already created for this problem.
 
+#new_list = [ {val} for {iter} in {seq} ]
 
-
+names_with_not_too_much_seniority = (list(x.name for x in programmers if len(x.name) > x.years_UM))
 
 ## [PROBLEM 10]
 print("\n\n***** Problem 10 *****")
@@ -169,18 +171,29 @@ print("\n\n***** Problem 10 *****")
 
 # Define readfiles (make sure to close the file reference in the right place)
 
+def readfiles(list_of_filenames):
+    for file in list_of_filenames:
+        to_read = open(file)
+        for line in to_read.readlines():
+            yield line
 
 # Define len_check
 
+def len_check(file_name_generator):
+    for line in file_name_generator:
+        if len(line) > 40:
+            yield line
 
 # Define main_filterer
-
-
+    
+def main_filterer(list_of_fnames):
+    for line in readfiles(list_of_fnames):
+        return len_check(line)
 
 ## Uncomment this code to test so you can see easily what results from your code. DO uncomment it. DO NOT delete or change it. (You can add other code above while you work, of course.)
-# provided_file_names = ["samplehw6_1.txt","samplehw6_2.txt"]
-# for ln in main_filterer(provided_file_names):
-#     print(ln.rstrip('\n'), end=" ")
+provided_file_names = ["samplehw6_1.txt","samplehw6_2.txt"]
+for ln in main_filterer(provided_file_names):
+    print(ln.rstrip('\n'), end=" ")
 #####
 
 
